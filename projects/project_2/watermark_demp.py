@@ -8,6 +8,7 @@ import os
 # os.path.abspath() 获取绝对路径
 SCRIPT_DIR = os.path.abspath(os.path.dirname(__file__))
 
+
 # --- 配置参数 ---
 # 宿主图像路径 (相对于脚本目录)
 HOST_IMAGE_PATH = os.path.join(SCRIPT_DIR, 'host_image.png')
