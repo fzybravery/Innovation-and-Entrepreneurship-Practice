@@ -23,3 +23,35 @@ project3/
 
 # 运行和测试
 
+在开始之前，请确保您已经安装了 Node.js 和 circom & snarkjs。
+- 步骤 1: 安装依赖
+在项目根目录下打开终端，运行以下命令：
+```bash
+npm install
+```
+- 步骤 2: 运行单元测试
+执行以下命令来运行 mocha 测试。这个命令会编译 poseidon2.circom 电路，并用 poseidon2.test.js 中的逻辑来验证它。
+```bash
+npm test
+```
+如果一切顺利，您应该会看到测试通过的输出，表明您的 Circom 电路实现是正确的。
+
+# 生成证明
+测试通过后，我们就可以使用 Groth16 协议来为这个电路生成一个真实的零知识证明。
+```
+scripts/run_groth16.sh
+```
+这个脚本自动化了整个流程：编译、可信设置、计算 witness、生成证明和验证证明。
+如何运行脚本:
+
+将上述代码保存到 scripts/run_groth16.sh。
+
+在终端中，首先给脚本执行权限：
+```bash
+chmod +x scripts/run_groth16.sh
+```
+然后运行脚本：
+```
+./scripts/run_groth16.sh
+```
+脚本会自动执行所有步骤。如果最后输出 ✅✅✅ `Proof is valid!` 和 🎉 `All steps completed successfully!`，则表示您已成功地为 Poseidon2 电路创建并验证了一个零知识证明。所有生成的文件（r1cs, zkey, proof.json 等）都将位于 `build/` 目录下。
