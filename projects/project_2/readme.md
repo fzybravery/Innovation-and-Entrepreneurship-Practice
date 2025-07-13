@@ -127,3 +127,5 @@ DCT 是一种将图像从空间域转换到频域的数学变换。在 DCT 域�
 - 水印流程：依次调用嵌入、无攻击提取和多项鲁棒性测试。  
 - 结果汇总：收集并打印所有测试的 NC 和 BER 值。  
 - 可视化：使用 `matplotlib` 绘制多子图并保存为 `robustness_summary.png`。
+
+<img width="1506" height="941" alt="image" src="https://github.com/user-attachments/assets/ff6d3c61-76f5-4767-9fd7-dfa4448223ce" />
