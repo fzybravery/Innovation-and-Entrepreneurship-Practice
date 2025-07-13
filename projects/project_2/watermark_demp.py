@@ -343,11 +343,18 @@ def main():
 
     if original_watermark_img is None:
         print(f"错误: 无法加载水印图像 {WATERMARK_IMAGE_PATH}。正在生成示例图像...")
-        original_watermark_img = np.zeros((32, 32), dtype=np.uint8)
-        cv2.putText(original_watermark_img, "WM", (5, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+        original_watermark_img = np.zeros((32, 128), dtype=np.uint8)  # 扩展宽度以适配更长文本
+        watermark_text = "202200460135"
+        font_scale = 0.5
+        thickness = 1
+        text_size = cv2.getTextSize(watermark_text, cv2.FONT_HERSHEY_SIMPLEX, font_scale, thickness)[0]
+        text_x = (original_watermark_img.shape[1] - text_size[0]) // 2
+        text_y = (original_watermark_img.shape[0] + text_size[1]) // 2
+        cv2.putText(original_watermark_img, watermark_text, (text_x, text_y),
+                    cv2.FONT_HERSHEY_SIMPLEX, font_scale, (255, 255, 255), thickness)
         _, original_watermark_img = cv2.threshold(original_watermark_img, 128, 255, cv2.THRESH_BINARY)
         cv2.imwrite(WATERMARK_IMAGE_PATH, original_watermark_img)
-        print(f"已生成示例水印图像: {WATERMARK_IMAGE_PATH}")
+        print(f"已生成水印图像: {WATERMARK_IMAGE_PATH}")
 
     # 将原始水印图像转换为二值形式（0或255），用于后续比较
     _, original_watermark_binary = cv2.threshold(original_watermark_img, 128, 255, cv2.THRESH_BINARY)
